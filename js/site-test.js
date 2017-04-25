@@ -4,10 +4,14 @@ $(document).ready(function() {
       var searchKeyword = $(this).val();
       if (searchKeyword.length >= 3) {
          $.post('search.php', { keywords: searchKeyword }, function(data) {
-         //$('table tbody').empty()
-         $.each(data, function() {
-            $('table tbody').append('<tr><td>' + this.artist + '<\/td><td>' + this.song + '</td><\/tr>');
-         });
+         $('#results').empty()
+         if (data.length !== 0) {
+            $.each(data, function() {
+               $('#results').append('<li>' + this.artist + ' - ' + this.song + '</li>');
+            });
+         } else {
+            $('#results').append('<li>No results found.</li>');
+         }
          }, "json");
       } else {
          $('#results').empty()
@@ -24,4 +28,4 @@ $(document).ready(function() {
       }, "json");
    });
 
-});
+});oo
